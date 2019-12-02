@@ -232,7 +232,6 @@
 				TargetAttributes = {
 					FCD563BB1D756A4E00CB8077 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = JA4KSR8M3T;
 						ProvisioningStyle = Automatic;
 					};
 					FCD563EF1D75708F00CB8077 = {
@@ -247,6 +246,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -419,7 +419,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = JA4KSR8M3T;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WTToolBox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wintel.WTToolBox;
@@ -433,7 +433,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = JA4KSR8M3T;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WTToolBox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wintel.WTToolBox;
