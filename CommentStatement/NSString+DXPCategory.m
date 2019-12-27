@@ -64,6 +64,7 @@
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
     return [phoneTest evaluateWithObject:self];
 }
+
 /** 英文字母 */
 - (BOOL)isLetters {
     if (self.length == 0) return NO;

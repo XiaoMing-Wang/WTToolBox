@@ -56,8 +56,8 @@
     NSInteger startColumn = selectionRange.start.column;
     NSInteger endColumn = selectionRange.end.column;
     text = [text substringWithRange:NSMakeRange(startColumn, endColumn - startColumn)];
-    if (text.isLetters == NO) return;
-    NSString *importString = [NSString stringWithFormat:@"#import \"%@.h\"\n",text];
+    /** if (text.isLetters == NO) return; */
+    NSString *importString = [NSString stringWithFormat:@"#import \"%@.h\"",text];
     
     //所有的代码
     NSArray <NSString *>*stringArray = [NSArray arrayWithArray:invocation.buffer.lines];
@@ -66,7 +66,7 @@
     __block NSInteger implementation = 0;
     
     NSMutableArray *importArray = @[].mutableCopy;
-    [stringArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [stringArray enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         
         /** 已经存在 */
         if ([obj isEqualToString:importString]) {
@@ -79,15 +79,14 @@
         if ([obj hasPrefix:@"@interface"]) interface = idx;
         if ([obj hasPrefix:@"@implementation"]) implementation = idx;
     }];
-    
+
     /** 已经存在 */
     if (insertRow == -1) return;
-    
-    
+
     //不存在插入
     if (importArray.count > 0) {
-        NSString * lastString = importArray.lastObject;
-        insertRow = [stringArray indexOfObject:lastString] + 1;
+        NSString *lastString = importArray.firstObject;
+        insertRow = [stringArray indexOfObject:lastString ] + 1;
     } else {
         if (interface > 0) insertRow = interface - 1;
         if (interface == 0 && implementation > 0) insertRow = implementation - 1;
@@ -125,7 +124,20 @@
         NSString * className = obj.getClassName;
         NSString * attribute = obj.getAttribute;
         if ([settingArray containsObject:attribute]) return;
-        [methods appendString:[NSString stringWithFormat:@"%@%@:(%@)%@ {\n    _%@ = %@;\n}\n",setStart,attribute.capitalizedString,className,attribute,attribute,attribute]];
+        
+        NSString *resultStr = attribute;
+        if (attribute && attribute.length > 0) {
+            resultStr = [attribute stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                           withString:[[attribute substringToIndex:1] capitalizedString]];
+        }
+                
+        [methods appendString:[NSString stringWithFormat:@"%@%@:(%@)%@ {\n    _%@ = %@;\n}\n",
+                               setStart,
+                               resultStr,
+                               className,
+                               attribute,
+                               attribute,
+                               attribute]];
     }];
     
     if (!methods.available) return;
@@ -279,12 +291,12 @@
     NSString *toString = [[dxpLine.replaceString componentsSeparatedByString:@"="].lastObject removeSpaces];
     if ([fromString isEqualToString:toString]) return;
     if ([toString isEqualToString:@"<#object#>"]) return;
+    if (!fromString || !toString) return;
     
-    for (NSInteger i = startLine + 1; i <= endLine - 1; i++) {
+    for (NSInteger i = startLine; i < endLine; i++) {
         NSString *lineString = invocation.buffer.lines[i].mutableCopy;
-        if ([lineString containsString:fromString] && ![lineString containsString:@"R-R"])  {
+        if ([lineString containsString:fromString])  {
             lineString = [lineString stringByReplacingOccurrencesOfString:fromString withString:toString];
-            lineString = [lineString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             [invocation.buffer.lines removeObjectAtIndex:i];
             [invocation.buffer.lines insertObject:lineString atIndex:i];
         }
@@ -350,8 +362,8 @@
 /** 跳转到选择行 */
 + (void)moveLine:(XCSourceEditorCommandInvocation *)invocation line:(NSInteger)line {
     XCSourceTextRange *replaceRange = [[XCSourceTextRange alloc] init];
-    replaceRange.start = (XCSourceTextPosition){ line, 0};
-    replaceRange.end = (XCSourceTextPosition){ line, 0};
+    replaceRange.start = (XCSourceTextPosition){line, 0};
+    replaceRange.end = (XCSourceTextPosition){line, 0};
     [invocation.buffer.selections removeAllObjects];
     [invocation.buffer.selections addObject:replaceRange];
 }

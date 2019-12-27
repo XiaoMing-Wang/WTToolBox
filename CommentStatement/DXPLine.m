@@ -72,13 +72,12 @@
             }];
         }
         
-        
-        if ([obj containsString:@"R-R"]) {
+    /**  */
+        if ([obj containsString:@"===="] || [obj containsString:@"==="] || [obj containsString:@"====="]) {
             NSString *string = obj.mutableCopy;
-            string = [string stringByReplacingOccurrencesOfString:@"R-R" withString:@""];
             string = [string stringByReplacingOccurrencesOfString:@"/" withString:@""];
             string = [string stringByReplacingOccurrencesOfString:@"*" withString:@""];
-            self.replaceString = string.copy;
+            self.replaceString = obj.copy;
         }
         
     }];

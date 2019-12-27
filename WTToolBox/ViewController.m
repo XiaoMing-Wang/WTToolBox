@@ -18,7 +18,7 @@
     //NSLog(@"结果:\n%@",[self deleteFirstSpace:@"    3"]);
     
     NSLog(@"结果:\n%@",[self deleteFirstSpace2:@"- (NSDictionary *)handlers ddddd:(NSDictionary *)aaaaa asdasd:(NSIntger) number"]);
-    
+
     
 }
 
