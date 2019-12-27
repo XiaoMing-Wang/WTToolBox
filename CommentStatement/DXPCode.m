@@ -291,6 +291,8 @@
     NSString *toString = [[dxpLine.replaceString componentsSeparatedByString:@"="].lastObject removeSpaces];
     if ([fromString isEqualToString:toString]) return;
     if ([toString isEqualToString:@"<#object#>"]) return;
+    
+    
     if (!fromString || !toString) return;
     
     for (NSInteger i = startLine; i < endLine; i++) {
