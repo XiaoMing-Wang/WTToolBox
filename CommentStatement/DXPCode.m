@@ -97,7 +97,6 @@
 }
 
 + (void)dxpCode_SortingClass:(XCSourceEditorCommandInvocation *)invocation {
-    DXPLine * dxpLine = [[DXPLine alloc] initWithInvocation:invocation];
     XCSourceTextRange *selectionRange = invocation.buffer.selections.firstObject;
     if (![self isSelections:invocation]) return;
     
@@ -351,7 +350,7 @@
             [invocation.buffer.lines replaceObjectAtIndex:i withObject:lineString];
         }
         
-        if ([toString hasPrefix:@"self."]) {
+        if ([toString hasPrefix:@"self."] && ![lineString containsString:@"==>"]) {
             NSRange range = [lineString rangeOfString:@"self."];
             lineString = [lineString substringFromIndex:range.location];
             lineString = [@"    " stringByAppendingString:lineString];

@@ -18,18 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    /** <#object#> ==> self.label */
-//    UILabel *<#object#> = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-//    <#object#>.textAlignment = NSTextAlignmentLeft;
-//    <#object#>.text = @"Test";
-//    <#object#>.font = [UIFont systemFontOfSize:16];
-//    <#object#>.textColor = [UIColor whiteColor];
-//    <#object#>.numberOfLines = 1;
-//    <#object#>.x = 0;
-//    <#object#>.y = 0;
-    
-    
+              
     // Do any additional setup after loading the view.
     
     //NSLog(@"结果:\n%@",[self deleteFirstSpace:@"    3"]);
@@ -52,16 +41,15 @@
         if ([newString hasPrefix:@" "]) {
             if (newString.length > 1) {
                 newString = [newString substringFromIndex:1];
-            }else{
+            } else {
                 newString = @"";
             }
-        }else{
+        } else {
             break;
         }
     }
     return newString;
 }
-
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
@@ -75,7 +63,7 @@
 }
 
 - (NSString *)name {
-    //if (!_name) _name = @;
+    // if (!_name) _name = @;
     return _name;
 }
 @end
