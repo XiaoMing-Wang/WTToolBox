@@ -106,7 +106,7 @@
     NSInteger endLine = selectionRange.end.line;
     for (NSInteger i = startLine; i <= endLine; i++) {
         NSString *text = invocation.buffer.lines[i];
-        if ([text.removeSpaces hasPrefix:@"#import"]) [importArray addObject:text];
+        [importArray addObject:text];
     }
     
     for (NSString *text in importArray) {
